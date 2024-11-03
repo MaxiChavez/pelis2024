@@ -23,41 +23,20 @@ const Crear = ({ setListadoState }) => {
 
     // Guardar el estado
     setPeliState(peli);
-
     //Actualizar el estado del listado principal
-
     setListadoState((elementos) => {
-      return [...elementos, peli];
+      return [...(elementos || []), peli];
     });
 
-    // Guardar la película en localStorage
+    //Guardar en el almacenamiento local
     GuardarEnStorage("pelis", peli);
-  };
-
-  const guardarEnStorage = (peli) => {
-    //conseguir los elementos que hay en el storage
-    let elementos = JSON.parse(localStorage.getItem("pelis"));
-    console.log(elementos);
-    //Comprobar si es un array
-    if (Array.isArray(elementos)) {
-      elementos.push(peli);
-      //añadir dentro del array un elemento nuevo
-    } else {
-      elementos = [peli];
-      //crear un array con nueva peli
-    }
-    console.log("elementos :", elementos);
-
-    //guardar en el local storage
-
-    //Devolver el objeto guardado
   };
 
   return (
     <div className="add">
       <h3 className="title">{tituloComponente}</h3>
       <strong>
-        {titulo && descripcion && "Creaste la pelicula: " + peliState.titulo}
+        {titulo && descripcion && "Creaste la pelicula: " + titulo}
       </strong>
       <form onSubmit={conseguirDatosForm}>
         <input type="text" placeholder="Titulo" name="titulo" />

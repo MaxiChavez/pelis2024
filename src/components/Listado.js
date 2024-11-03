@@ -9,9 +9,27 @@ const Listado = ({ listadoState, setListadoState }) => {
   }, []);
 
   const conseguirPeliculas = () => {
-    let peliculas = JSON.parse(localStorage.getItem("pelis"));
+    let peliculas = JSON.parse(localStorage.getItem("pelis")) || [];
     setListadoState(peliculas);
-    console.log(peliculas);
+
+    return peliculas;
+  };
+
+  const borrarPeli = (id) => {
+    // ... (resto del código)
+    let pelis_almacenadas = conseguirPeliculas();
+
+    // Crear una copia del array antes de filtrar
+    const nuevo_array_peliculas = [...pelis_almacenadas];
+
+    // Filtrar el array usando el operador de estricta igualdad
+    const peliculasFiltradas = nuevo_array_peliculas.filter(
+      (peli) => peli.id !== parseInt(id)
+    );
+
+    // Actualizar el estado y el localStorage
+    setListadoState(peliculasFiltradas);
+    localStorage.setItem("pelis", JSON.stringify(peliculasFiltradas));
   };
 
   return (
@@ -23,7 +41,12 @@ const Listado = ({ listadoState, setListadoState }) => {
               <h3 className="title">{peli.titulo}</h3>
               <p className="description">{peli.descripcion}</p>
               <button className="edit">Editar</button>
-              <button className="delete">Borrar</button>
+              <button className="delete" onClick={() => borrarPeli(peli.id)}>
+                Borrar
+              </button>
+              {/**aparece formulario de editar
+               *
+               */}
             </article>
           );
         })
