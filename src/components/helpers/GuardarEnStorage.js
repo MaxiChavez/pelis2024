@@ -1,6 +1,6 @@
 const GuardarEnStorage = (clave, elemento) => {
   // Obtener elementos del localStorage
-  let elementos = JSON.parse(localStorage.getItem("clave"));
+  let elementos = JSON.parse(localStorage.getItem(clave) || []);
 
   // Comprobar si es un array, si no lo es, creamos uno
   if (Array.isArray(elementos)) {
